@@ -45,6 +45,12 @@ export const DatosPersonalesModel = sequelize.define(
     acercade: {
       type: DataTypes.STRING,
       allowNull: true,
+    },resena: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },calificacion: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
       state: {
         type: DataTypes.BOOLEAN,

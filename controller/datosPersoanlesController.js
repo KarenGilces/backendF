@@ -3,7 +3,7 @@ export const getDatos = async (req, res) => {
     try {
         const datos = await DatosPersonalesModel.findOne({
           attributes: ['id', 'names','lastname','cedula', 'date','acercade','celular','sexo', 'foto'
-          ,'minBibliografia'] , where: {id: req.params.id }  });
+          ,'minBibliografia','calificacion','resena'] , where: {id: req.params.id }  });
         if(datos==null){
           return res.status(404).json({message: "Usuario no encontrado"});
         }
@@ -16,7 +16,7 @@ export const getDatosTodos = async (req, res) => {
   try {
     const datos = await DatosPersonalesModel.findAll({
       attributes: ['id', 'names','lastname','cedula', 'date','celular','sexo', 'foto','acercade'
-      ,'minBibliografia']
+      ,'minBibliografia','calificacion','resena']
     },{where: {state:true}});
   
     res.status(200).json({datos});
@@ -195,4 +195,26 @@ export const createUpdateNames = async (req, res) => {
         await datos.save();
        return res.status(200).json({ message: "names actualizado"});
     }
+};
+export const crearResenaYCalificacion = async (req, res) => {
+  // Verifica si se proporciona una reseña o calificación en el cuerpo de la solicitud
+  if (!req.body.resena && !req.body.calificacion) {
+    return res.status(400).json({ message: "resena or calificacion is required" });
+  }
+
+  const datos = await DatosPersonalesModel.findOne({ where: { id: req.params.id } });
+
+  if (datos) {
+    // Actualiza los datos del usuario según lo que se proporcionó en el cuerpo de la solicitud
+    if (req.body.resena) {
+      datos.set({ ...datos, resena: req.body.resena });
+    }
+
+    if (req.body.calificacion) {
+      datos.set({ ...datos, calificacion: req.body.calificacion });
+    }
+
+    await datos.save();
+    return res.status(200).json({ message: "resena and/or calificacion updated" });
+  }
 };
