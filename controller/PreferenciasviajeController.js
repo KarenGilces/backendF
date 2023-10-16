@@ -1,18 +1,18 @@
 
   import { PreferenciasviajeModel } from "../models/PreferenciasviajeModel.js";
 
-export const getPreferenciasviaje = async (req, res) => {
-  try {
-    const Preferenciasviaje = await PreferenciasviajeModel.findAll({
-      attributes: ['id', 'preferencia','state']
-    },{where: {state:true}});
+  export const getPreferenciasviaje = async (req, res) => {
+    try {
+      const Preferenciasviaje = await PreferenciasviajeModel.findAll({
+        attributes: ['id', 'preferencia','state']
+      ,where: {state:true}});
   
-    res.status(200).json({Preferenciasviaje});
-   
-  } catch (error) {
-      res.status(500).json({ error: error.message });
-  }
-};
+      res.status(200).json({Preferenciasviaje});
+  
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+  };
 
 export const createPreferenciasviaje = async (req, res) => {
   try {
