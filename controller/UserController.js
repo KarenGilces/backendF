@@ -227,7 +227,7 @@ export const uploadImagen = async (req, res) => {
         const nombreImagen = req.file.filename;
         persona.set({...persona,foto:nombreImagen});
         await persona.save();
-        res.status(200).json({ message: "Imagen subida con éxito" });
+        res.status(200).json({ message: "Imagen subida con éxito" , img:persona.foto});
         }else{
         res.status(404).json({message: "Usuario no encontrado"});
       }

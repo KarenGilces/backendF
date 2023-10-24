@@ -26,7 +26,7 @@ import { sequelize } from "./db/conexion.js";
 
 const _PORT = PORT || 3000;
 const app = express();
-
+import path from 'path';
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -49,6 +49,14 @@ app.use('/api', routerMarca);
 app.use('/api', routerMadelo);
 app.use('/api', routerTipoVehiculo);
 app.use('/api', routerColor);
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const staticRoute = path.join(__dirname, 'uploads/imagenes/usuario');
+app.use('/imagenes', express.static(staticRoute));
+
 const main = async () => {
     try {
         await sequelize.authenticate();

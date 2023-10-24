@@ -12,6 +12,7 @@ const storage = multer.diskStorage({
     },
   });
   const upload = multer({ storage })
+  
 import { login,updateUsersPassword, uploadImagen,updateUsersEmail, getUsers,createUsers,updateUsers,deleteUsers} from '../controller/UserController.js';
 import  {verifyToken}  from '../middleware/auth.js';
 const rotuer = express.Router();
@@ -24,4 +25,6 @@ rotuer.delete('/user/:id', verifyToken, deleteUsers);
 rotuer.post('/login', login);
 rotuer.put('/user/email/:id',verifyToken, updateUsersEmail);
 rotuer.put('/user/password/:id',verifyToken, updateUsersPassword);
+
+
 export default rotuer;
