@@ -42,7 +42,7 @@ DatosPersonalesModel.hasMany(VehiculoModel, { foreignKey: "datospersonales_id" }
 VehiculoModel.belongsTo(DatosPersonalesModel, { foreignKey: "datospersonales_id" });
 ColorModel.hasMany(VehiculoModel, { foreignKey: "color_id" });
 VehiculoModel.belongsTo(ColorModel, { foreignKey: "color_id" });
-TipoVehiculoModel.hasMany(VehiculoModel, { foreignKey: "tipoVehiculoModel_id" });
-VehiculoModel.belongsTo(TipoVehiculoModel, { foreignKey: "tipoVehiculoModel_id" });
+TipoVehiculoModel.hasMany(VehiculoModel, { foreignKey: "tipoVehiculo_id" });
+VehiculoModel.belongsTo(TipoVehiculoModel, { foreignKey: "tipoVehiculo_id" });
 ModeloModel.hasMany(VehiculoModel, { foreignKey: "modelo_id" });
 VehiculoModel.belongsTo(ModeloModel, { foreignKey: "modelo_id" });

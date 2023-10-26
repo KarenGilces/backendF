@@ -4,7 +4,7 @@ export const getVehiculo = async (req, res) => {
     try {
         const vehiculos= await VehiculoModel.findAll({
           attributes: ['id', 'placa', 'anioPublicacion','marca_id','datospersonales_id','color_id',
-          'tipoVehiculoModel_id','modelo_id']
+          'tipoVehiculo_id','modelo_id']
         },{where: {state:true}});
       
         res.status(200).json({vehiculos});
@@ -16,8 +16,8 @@ export const getVehiculo = async (req, res) => {
 
 export const createVehiculo = async (req, res) => {
     try {
-        const { placa,anioPublicacion, marca_id, datospersonales_id,color_id,tipoVehiculoModel_id,modelo_id} = req.body;
-        if (!(placa ||  anioPublicacion|| marca_id ||  color_id ||  tipoVehiculoModel_id || datospersonales_id||modelo_id)) {
+        const { placa,anioPublicacion, marca_id, datospersonales_id,color_id,tipoVehiculo_id,modelo_id} = req.body;
+        if (!(placa ||  anioPublicacion|| marca_id ||  color_id ||  tipoVehiculo_id	 || datospersonales_id||modelo_id)) {
           res.status(400).json({ message: "all input is required" });
         }
         const oldUser = await VehiculoModel.findOne({ where: { placa: placa } });
@@ -30,7 +30,7 @@ export const createVehiculo = async (req, res) => {
             marca_id,
              modelo_id,
             anioPublicacion,
-            tipoVehiculoModel_id,
+            tipoVehiculo_id,
             datospersonales_id
             
         });

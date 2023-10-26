@@ -7,6 +7,4 @@ rotuer.get('/vehiculo',verifyToken, getVehiculo);
 rotuer.post('/vehiculo', createVehiculo);
 rotuer.put('/vehiculo/:id', updateVehiculo);
 rotuer.delete('/vehiculo/:id',  deleteVehiculo);
-
-
 export default rotuer;
