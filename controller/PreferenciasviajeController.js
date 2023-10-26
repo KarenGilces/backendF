@@ -55,18 +55,4 @@ export const deletePreferenciasviaje= async (req, res) => {
    return res.status(404).json({ message: "preferencia not found" });
   }
   };
-  export const createUpdatePreferenciasviaje = async (req, res) => {
   
-    if(!req.params.id){
-       return res.status(404).json({ message: "usuario no encontrado"});
-    }
-    if (!req.body.preferencia) {
-        return res.status(400).json({ message: "apellido is required" });
-      }
-      const datos = await PreferenciasviajeModel.findOne({ where: { id: req.params.id } });
-      if (datos) {
-          datos.set({ ...datos, preferencia: req.body.preferencia });
-          await datos.save();
-         return res.status(200).json({ message: "preferencia actualizado"});
-      }
-  };

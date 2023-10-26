@@ -1,14 +1,16 @@
 
   import { PreferenciasDatosPersonalesModel } from "../models/PreferenciasDatosPersonalesModel.js";
 
+
+
 export const getPreferenciasDatosPersonales = async (req, res) => {
   try {
-    const PreferenciasDatosPersonales= await PreferenciasDatosPersonalesModel.findAll({
-      attributes: ['id', 'id_preferencia', 'id_datosPersonales']
-    },{where: {state:true}});
-  
+    const PreferenciasDatosPersonales = await PreferenciasDatosPersonalesModel.findAll({
+      attributes: ['id', 'id_preferencia', 'id_datosPersonales','state']
+    ,where: {state:true}});
+
     res.status(200).json({PreferenciasDatosPersonales});
-   
+
   } catch (error) {
       res.status(500).json({ error: error.message });
   }
@@ -23,8 +25,6 @@ export const createPreferenciasDatosPersonales = async (req, res) => {
     const PreferenciasDatosPersonales = await PreferenciasDatosPersonalesModel.create({
       id_preferencia, // sanitize: convert email to lowercase
       id_datosPersonales
-       
-        
     });
     res.status(201).json({ PreferenciasDatosPersonales});
   } catch (error) {

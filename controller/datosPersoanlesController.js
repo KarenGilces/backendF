@@ -39,8 +39,8 @@ export const createDatos  = async (req, res) => {
     cedula,
     names, // sanitize: convert email to lowercase
     email,
-      date,
-      celular,
+    date,
+    celular,
     sexo, // sanitize: convert email to lowercase
     foto,
       minBibliografia,
