@@ -13,7 +13,19 @@ export const getVehiculo = async (req, res) => {
           res.status(500).json({ error: error.message });
       }
 };
-
+export const getVehiculoId = async (req, res) => {
+  try {
+      const datos = await VehiculoModel.findOne({
+        attributes: ['id', 'placa', 'anioPublicacion','marca_id','datospersonales_id','color_id',
+        'tipoVehiculo_id','modelo_id'] , where: {id: req.params.id }  });
+      if(datos==null){
+        return res.status(404).json({message: "Vehiculo  no encontrado"});
+      }
+      return res.status(200).json({datos});
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+};
 export const createVehiculo = async (req, res) => {
   try {
     const { placa, anioPublicacion, marca_id, datospersonales_id, color_id, tipoVehiculo_id, modelo_id } = req.body;

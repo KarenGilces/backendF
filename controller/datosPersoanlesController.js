@@ -1,9 +1,20 @@
 import { DatosPersonalesModel } from "../models/DatosPersonalesModel.js";
+import { VehiculoModel } from "../models/VehiculoModel.js";
 export const getDatos = async (req, res) => {
     try {
         const datos = await DatosPersonalesModel.findOne({
           attributes: ['id', 'names','lastname','cedula', 'date','acercade','celular','sexo', 'foto'
-          ,'minBibliografia','calificacion','resena'] , where: {id: req.params.id }  });
+          ,'minBibliografia','calificacion','resena'] ,
+           where: {id: req.params.id },
+          
+           include: [
+            {
+              model: VehiculoModel, 
+              attributes: ['id',] 
+            }
+          ]
+          
+          });
         if(datos==null){
           return res.status(404).json({message: "Usuario no encontrado"});
         }
