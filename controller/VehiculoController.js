@@ -56,7 +56,6 @@ export const createVehiculo = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 export const updateVehiculo = async (req, res) => {
     if (!req.body.placa) {
         res.status(400).json({ message: "placa is required" });
@@ -78,5 +77,95 @@ export const deleteVehiculo= async (req, res) => {
       res.status(200).json({ message: "delete" });
     } else {
       res.status(404).json({ message: "type not found" });
+    }
+};
+export const createUpdatePlaca = async (req, res) => {
+  
+  if(!req.params.id){
+     return res.status(404).json({ message: "placa no encontrada"});
+  }
+  if (!req.body.placa) {
+      return res.status(400).json({ message: "placa is required" });
+    }
+    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
+    if (datos) {
+        datos.set({ ...datos, placa: req.body.placa });
+        await datos.save();
+       return res.status(200).json({ message: "placa actualizado"});
+    }
+};
+export const createUpdateColor = async (req, res) => {
+  
+  if(!req.params.id){
+     return res.status(404).json({ message: "color no encontrada"});
+  }
+  if (!req.body.color_id) {
+      return res.status(400).json({ message: "color is required" });
+    }
+    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
+    if (datos) {
+        datos.set({ ...datos, color_id: req.body.color_id });
+        await datos.save();
+       return res.status(200).json({ message: "color actualizado"});
+    }
+};
+export const createUpdateMarca = async (req, res) => {
+  
+  if(!req.params.id){
+     return res.status(404).json({ message: "maarca no encontrada"});
+  }
+  if (!req.body.marca_id) {
+      return res.status(400).json({ message: "marca is required" });
+    }
+    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
+    if (datos) {
+        datos.set({ ...datos, marca_id: req.body.marca_id });
+        await datos.save();
+       return res.status(200).json({ message: "marca actualizado"});
+    }
+};
+export const createUpdateModelo = async (req, res) => {
+  
+  if(!req.params.id){
+     return res.status(404).json({ message: "modelo no encontrada"});
+  }
+  if (!req.body.modelo_id) {
+      return res.status(400).json({ message: "modelo is required" });
+    }
+    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
+    if (datos) {
+        datos.set({ ...datos, modelo_id: req.body.modelo_id });
+        await datos.save();
+       return res.status(200).json({ message: "modelo actualizado"});
+    }
+};
+export const createUpdateAnio = async (req, res) => {
+  
+  if(!req.params.id){
+     return res.status(404).json({ message: "año no encontrada"});
+  }
+  if (!req.body.anioPublicacion) {
+      return res.status(400).json({ message: "año is required" });
+    }
+    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
+    if (datos) {
+        datos.set({ ...datos, anioPublicacion: req.body.anioPublicacion });
+        await datos.save();
+       return res.status(200).json({ message: "año actualizado"});
+    }
+};
+export const createUpdateTipo = async (req, res) => {
+  
+  if(!req.params.id){
+     return res.status(404).json({ message: "modelo no encontrada"});
+  }
+  if (!req.body.tipoVehiculo_id) {
+      return res.status(400).json({ message: "modelo is required" });
+    }
+    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
+    if (datos) {
+        datos.set({ ...datos, tipoVehiculo_id: req.body.tipoVehiculo_id });
+        await datos.save();
+       return res.status(200).json({ message: "tipo actualizado"});
     }
 };
