@@ -95,49 +95,70 @@ export const createUpdatePlaca = async (req, res) => {
     }
 };
 export const createUpdateColor = async (req, res) => {
-  
-  if(!req.params.id){
-     return res.status(404).json({ message: "color no encontrada"});
+  try {
+    const vehiculoId = req.params.id;
+    const nuevoColorId = req.body.color_id;
+
+    // Verificar si la fila a actualizar existe
+    const vehiculo = await VehiculoModel.findByPk(vehiculoId);
+    if (!vehiculo) {
+      return res.status(404).json({ message: "Color no encontrado" });
+    }
+
+    // Actualizar la marca
+    vehiculo.color_id = nuevoColorId;
+    await vehiculo.save();
+
+    return res.status(200).json({ message: "Color actualizada con éxito" });
+  } catch (error) {
+    console.error("Error al actualizar el color:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
-  if (!req.body.color_id) {
-      return res.status(400).json({ message: "color is required" });
-    }
-    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
-    if (datos) {
-        datos.set({ ...datos, color_id: req.body.color_id });
-        await datos.save();
-       return res.status(200).json({ message: "color actualizado"});
-    }
 };
+
 export const createUpdateMarca = async (req, res) => {
-  
-  if(!req.params.id){
-     return res.status(404).json({ message: "maarca no encontrada"});
+  try {
+    const vehiculoId = req.params.id;
+    const nuevaMarcaId = req.body.marca_id;
+
+    // Verificar si la fila a actualizar existe
+    const vehiculo = await VehiculoModel.findByPk(vehiculoId);
+    if (!vehiculo) {
+      return res.status(404).json({ message: "Vehículo no encontrado" });
+    }
+
+    // Actualizar la marca
+    vehiculo.marca_id = nuevaMarcaId;
+    await vehiculo.save();
+
+    return res.status(200).json({ message: "Marca actualizada con éxito" });
+  } catch (error) {
+    console.error("Error al actualizar la marca:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
-  if (!req.body.marca_id) {
-      return res.status(400).json({ message: "marca is required" });
-    }
-    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
-    if (datos) {
-        datos.set({ ...datos, marca_id: req.body.marca_id });
-        await datos.save();
-       return res.status(200).json({ message: "marca actualizado"});
-    }
 };
+
 export const createUpdateModelo = async (req, res) => {
   
-  if(!req.params.id){
-     return res.status(404).json({ message: "modelo no encontrada"});
+  try {
+    const vehiculoId = req.params.id;
+    const nuevaModeloId = req.body.modelo_id;
+
+    // Verificar si la fila a actualizar existe
+    const vehiculo = await VehiculoModel.findByPk(vehiculoId);
+    if (!vehiculo) {
+      return res.status(404).json({ message: "Vehículo no encontrado" });
+    }
+
+    // Actualizar la marca
+    vehiculo.modelo_id = nuevaModeloId;
+    await vehiculo.save();
+
+    return res.status(200).json({ message: "Modelo actualizada con éxito" });
+  } catch (error) {
+    console.error("Error al actualizar el modelo:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
-  if (!req.body.modelo_id) {
-      return res.status(400).json({ message: "modelo is required" });
-    }
-    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
-    if (datos) {
-        datos.set({ ...datos, modelo_id: req.body.modelo_id });
-        await datos.save();
-       return res.status(200).json({ message: "modelo actualizado"});
-    }
 };
 export const createUpdateAnio = async (req, res) => {
   
@@ -155,17 +176,23 @@ export const createUpdateAnio = async (req, res) => {
     }
 };
 export const createUpdateTipo = async (req, res) => {
-  
-  if(!req.params.id){
-     return res.status(404).json({ message: "modelo no encontrada"});
+  try {
+    const vehiculoId = req.params.id;
+    const nuevoTipoId = req.body.tipoVehiculo_id;
+
+    // Verificar si la fila a actualizar existe
+    const vehiculo = await VehiculoModel.findByPk(vehiculoId);
+    if (!vehiculo) {
+      return res.status(404).json({ message: "Vehículo no encontrado" });
+    }
+
+    // Actualizar la marca
+    vehiculo.tipoVehiculo_id = nuevoTipoId;
+    await vehiculo.save();
+
+    return res.status(200).json({ message: "TipoVehiculo actualizada con éxito" });
+  } catch (error) {
+    console.error("Error al actualizar el TipoVehiculo:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
-  if (!req.body.tipoVehiculo_id) {
-      return res.status(400).json({ message: "modelo is required" });
-    }
-    const datos = await VehiculoModel.findOne({ where: { id: req.params.id } });
-    if (datos) {
-        datos.set({ ...datos, tipoVehiculo_id: req.body.tipoVehiculo_id });
-        await datos.save();
-       return res.status(200).json({ message: "tipo actualizado"});
-    }
 };
