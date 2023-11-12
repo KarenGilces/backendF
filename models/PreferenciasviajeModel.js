@@ -27,7 +27,7 @@ export const PreferenciasviajeModel = sequelize.define(
   const PreferenciasData = [
     { preferencia: "Hablo por los codos!" },
     { preferencia: "Hablo cuando me siento comodo" },
-    { preferencia: "no Hablo mucho" },
+    { preferencia: "No Hablo mucho" },
     { preferencia: "Fumar no supone un problema" },
     { preferencia: "Acepto paradas para fumar" }, 
     { preferencia: "No quiero que se fume" },

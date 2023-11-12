@@ -17,7 +17,8 @@ export const getVehiculoId = async (req, res) => {
   try {
       const datos = await VehiculoModel.findOne({
         attributes: ['id', 'placa', 'anioPublicacion','marca_id','datospersonales_id','color_id',
-        'tipoVehiculo_id','modelo_id'] , where: {id: req.params.id }  });
+        'tipoVehiculo_id','modelo_id'] , where: {id: req.params.id, state: 1 }  });
+        
       if(datos==null){
         return res.status(404).json({message: "Vehiculo  no encontrado"});
       }
@@ -69,7 +70,7 @@ export const updateVehiculo = async (req, res) => {
         res.status(404).json({ message: "type not found" });
       }
 };
-export const deleteVehiculo= async (req, res) => {
+/* export const deleteVehiculo= async (req, res) => {
     const type = await VehiculoModel.findOne({ where: { id: req.params.id } });
     if (type) {
       type.set({ ...type, state: false });
@@ -78,6 +79,25 @@ export const deleteVehiculo= async (req, res) => {
     } else {
       res.status(404).json({ message: "type not found" });
     }
+}; */
+export const deleteVehiculo= async (req, res) => {
+  try {
+    const vehiculoId = req.params.id;
+
+    // Buscar el vehículo por ID
+    const vehiculo = await VehiculoModel.findByPk(vehiculoId);
+
+    if (!vehiculo) {
+      return res.status(404).json({ message: "Vehículo no encontrado" });
+    }
+
+    // Eliminar el vehículo de la base de datos
+    await vehiculo.destroy();
+
+    return res.status(200).json({ message: "Vehículo eliminado exitosamente" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 export const createUpdatePlaca = async (req, res) => {
   
