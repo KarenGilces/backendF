@@ -13,7 +13,7 @@ export const VeriDocumentosPersonalesModel = sequelize.define(
       autoIncrement: true,
     },
     
-      descripcion: {
+    foto: {
         type: DataTypes.STRING,
         allowNull: false,
         },

@@ -21,3 +21,22 @@ export const TiposDocumentosModel = sequelize.define(
     timestamps:false
 }
 )
+const tiposData = [
+    { datos: "Carnet" },
+    { datos: "Cedula" }
+   
+  ];
+  async function sedTiposD() {
+    try {
+      const tiposd = await TiposDocumentosModel.findAll();
+      if(tiposd && tiposd.length <= 0){
+        for (const tiposdData of tiposData) {
+          await TiposDocumentosModel.create(tiposdData);
+        }
+      }
+    } catch (error) {
+      console.error("Error al insertar los tipos de documentos:", error);
+    } 
+  }
+
+  sedTiposD();
