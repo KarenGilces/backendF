@@ -14,9 +14,9 @@ export const VeriDocumentosPersonalesModel = sequelize.define(
     },
     
     foto: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        },
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
       state: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,

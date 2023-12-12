@@ -3,16 +3,26 @@ import { DatosPersonalesModel } from "../models/DatosPersonalesModel.js";
 
 export const getVeriDocumentosPersonales = async (req, res) => {
   try {
-    const DocumentosPersonales= await VeriDocumentosPersonalesModel.findAll({
-      attributes: ['id', 'foto', 'id_tipoDocumento', 'id_datosPersonales']
-    },{where: {state:true}});
+    const idDatosPersonales = req.params.id; // Suponiendo que el ID se pasa como parámetro en la URL
+    
+    const documentosPersonales = await VeriDocumentosPersonalesModel.findAll({
+      attributes: ['id', 'foto', 'id_tipoDocumento', 'id_datosPersonales'],
+      where: {
+        id_datosPersonales: idDatosPersonales,
+      },
+    });
+
+    if (!documentosPersonales || documentosPersonales.length === 0) {
+      return res.status(404).json({ error: 'Documentos personales no encontrados' });
+    }
   
-    res.status(200).json({DocumentosPersonales});
+    res.status(200).json({ documentosPersonales });
    
   } catch (error) {
-      res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
+
 
 export const createVeriDocumentosPersonales = async (req, res) => {
   try {
@@ -59,35 +69,29 @@ export const deleteVeriDocumentosPersonales = async (req, res) => {
     res.status(404).json({ message: "type not found" });
   }
   };
-  import mime from 'mime-types';
-import path from 'path';
 
-export const uploadImagen = async (req, res) => {
-  try {
-    const { foto, id_tipoDocumento, id_datosPersonales } = req.body;
-    const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg'];
-
-    if (!foto) {
-      return res.status(400).json({ 'message': 'No se proporcionó una imagen' });
-    }
-
-    // Obtener la extensión del archivo
-    const extname = path.extname(foto);
-    // Obtener el tipo MIME a partir de la extensión del archivo
-    const mimeType = mime.lookup(extname);
-
-    if (allowedMimes.includes(mimeType)) {
+  export const uploadImagenes = async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: 'No se proporcionó ningún archivo' });
+      }
+  
+      const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!allowedMimes.includes(req.file.mimetype)) {
+        return res.status(400).json({ message: 'Solo se permiten archivos JPEG, PNG y JPG' });
+      }
+  
       const nuevaImagen = await VeriDocumentosPersonalesModel.create({
-        foto,
-        id_tipoDocumento,
-        id_datosPersonales,
+        foto: req.file.filename,
+        id_tipoDocumento: req.body.id_tipoDocumento, // Corregido a req.body
+        id_datosPersonales: req.body.id_datosPersonales, // Corregido a req.body
       });
-      
+  
       return res.status(200).json({ message: 'Imagen subida con éxito', img: nuevaImagen.foto });
-    } else {
-      return res.status(404).json({ message: 'Solo se permiten archivos JPEG, PNG y JPG' });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
     }
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
-};
+  };
+  
+
+  
