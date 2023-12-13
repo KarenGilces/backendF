@@ -18,7 +18,7 @@ from '../controller/VeriDocumentosPersonalesController..js';
 import  {verifyToken}  from '../middleware/auth.js';
 const rotuer = express.Router();
 rotuer.post('/veri/documento/imagenes', upload.single('imagen'), uploadImagenes);
-rotuer.get('/veri/documento/:id',verifyToken, getVeriDocumentosPersonales);
+rotuer.get('/veri/documento/:id', getVeriDocumentosPersonales);
 rotuer.post('/veri/documento',verifyToken,  createVeriDocumentosPersonales);
 rotuer.put('/veri/documento/:id', verifyToken, updateVeriDocumentosPersonales);
 rotuer.delete('/veri/documento/:id',verifyToken,  deleteVeriDocumentosPersonales);

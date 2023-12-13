@@ -3,8 +3,7 @@ import { DatosPersonalesModel } from "../models/DatosPersonalesModel.js";
 
 export const getVeriDocumentosPersonales = async (req, res) => {
   try {
-    const idDatosPersonales = req.params.id; // Suponiendo que el ID se pasa como parámetro en la URL
-    
+    const idDatosPersonales = req.params.id; 
     const documentosPersonales = await VeriDocumentosPersonalesModel.findAll({
       attributes: ['id', 'foto', 'id_tipoDocumento', 'id_datosPersonales'],
       where: {
