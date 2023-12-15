@@ -21,7 +21,18 @@ export const getVeriDocumentosPersonales = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+export const gettVeriDocumentosPersonalesT = async (req, res) => {
+  try {
+    const documentosPersonales = await VeriDocumentosPersonalesModel.findAll({
+      attributes: ['id', 'foto', 'id_tipoDocumento', 'id_datosPersonales']
+    ,where: {state:true}});
+  
+    res.status(200).json({documentosPersonales});
+   
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+};
 
 export const createVeriDocumentosPersonales = async (req, res) => {
   try {

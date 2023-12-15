@@ -4,7 +4,7 @@ export const getDatos = async (req, res) => {
     try {
         const datos = await DatosPersonalesModel.findOne({
           attributes: ['id', 'names','lastname','cedula', 'date','acercade','celular','sexo', 'foto'
-          ,'minBibliografia','calificacion','resena'] ,
+          ,'minBibliografia','calificacion','resena','state'] ,
            where: {id: req.params.id },
           
            include: [
@@ -27,7 +27,7 @@ export const getDatosTodos = async (req, res) => {
   try {
     const datos = await DatosPersonalesModel.findAll({
       attributes: ['id', 'names','lastname','cedula', 'date','celular','sexo', 'foto','acercade'
-      ,'minBibliografia','calificacion','resena']
+      ,'minBibliografia','calificacion','resena','state']
     },{where: {state:true}});
   
     res.status(200).json({datos});
