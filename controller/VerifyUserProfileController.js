@@ -2,7 +2,7 @@ import { VerifyUserProfileModel } from "../models/VerifyUserProfileModel.js";
 export const getVerifyUser = async (req, res) => {
     try {
         const perfilUsuario = await VerifyUserProfileModel.findAll({
-          attributes: ['id', 'detail', 'date', 'users_id','verificationType_id']
+          attributes: ['id', 'detail', 'type', 'users_id']
         },{where: {state:true}});
       
         res.status(200).json({perfilUsuario});
@@ -13,19 +13,16 @@ export const getVerifyUser = async (req, res) => {
 };
 export const createVerifyUser  = async (req, res) => {
   try {
-    const { detail, date, users_id, verificationType_id } = req.body;
-    if (!(detail ||  date ||  users_id ||  verificationType_id)) {
+    const { detail, type, users_id } = req.body;
+    if (!(detail ||  type ||  users_id )) {
       res.status(400).json({ message: "all input is required" });
     }
-    const oldUser = await VerifyUserProfileModel.findOne({ where: { detail: detail } });
-    if (oldUser) {
-      return res.status(409).json("detail already exist, enter again");
-    }
+   
     const users = await VerifyUserProfileModel.create({
       detail,
-      date, // sanitize: convert email to lowercase
+      type, // sanitize: convert email to lowercase
       users_id,
-      verificationType_id,
+      
     });
     res.status(201).json({ users});
   } catch (error) {
@@ -55,3 +52,4 @@ export const deleteVerifyUser = async (req, res) => {
     res.status(404).json({ message: "type not found" });
   }
 };
+

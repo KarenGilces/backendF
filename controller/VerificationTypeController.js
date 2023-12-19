@@ -10,21 +10,23 @@ export const getVerificationType = async (req, res) => {
 };
 
 export const createVerificationType = async (req, res) => {
-    try {
-        // Get type input
-        const { type } = req.body;
-        // Validate type input
-        if (!type) {
-          res.status(400).json({ message: "type is required" });
-        }
-        // Create type in our database
-        const types = await VerificationTypeModel.create(req.body);
-    
-        res.status(201).json({ message: "create", types });
-      } catch (error) {
-        res.status(500).json({ error: error.message });
-      }
+  try {
+    // Get type input
+    const { type } = req.body;
+    // Validate type input
+    if (typeof type !== 'boolean') {
+      res.status(400).json({ message: "type must be a boolean" });
+      return; // Agregado para salir de la función después de enviar la respuesta de error
+    }
+    // Create type in our database
+    const createdType = await VerificationTypeModel.create(req.body);
+
+    res.status(201).json({ message: "Created", type: createdType });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
+
 export const updateVerificationType = async (req, res) => {
     if (!req.body.type) {
         res.status(400).json({ message: "type is required" });
