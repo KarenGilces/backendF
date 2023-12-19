@@ -20,8 +20,17 @@ export const VeriDocumentosPersonalesModel = sequelize.define(
       state: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-      }
+      },
+      detail: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      type: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
   },
+  
   {
     timestamps: false,
   }

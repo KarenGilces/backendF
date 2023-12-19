@@ -102,6 +102,30 @@ export const deleteVeriDocumentosPersonales = async (req, res) => {
       return res.status(500).json({ error: error.message });
     }
   };
+  export const actualizarVerificacion = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const verification = await VeriDocumentosPersonalesModel.findByPk(id);
+  
+      if (!verification) {
+        return res.status(404).json({ message: 'Verification not found' });
+      }
+  
+      if (req.body.type !== undefined) {
+        verification.type = req.body.type === 'true';
+      }
+  
+      if (req.body.detail !== undefined) {
+        verification.detail = req.body.detail;
+      }
+  
+      await verification.save();
+  
+      return res.status(200).json({ message: 'Verification updated', verification });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  };
   
 
   

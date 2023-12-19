@@ -208,15 +208,11 @@ export const createUpdateNames = async (req, res) => {
     }
 };
 export const crearResenaYCalificacion = async (req, res) => {
-  // Verifica si se proporciona una reseña o calificación en el cuerpo de la solicitud
   if (!req.body.resena && !req.body.calificacion) {
     return res.status(400).json({ message: "resena or calificacion is required" });
   }
-
   const datos = await DatosPersonalesModel.findOne({ where: { id: req.params.id } });
-
   if (datos) {
-    // Actualiza los datos del usuario según lo que se proporcionó en el cuerpo de la solicitud
     if (req.body.resena) {
       datos.set({ ...datos, resena: req.body.resena });
     }
