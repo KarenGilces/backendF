@@ -5,7 +5,7 @@ export const getVeriDocumentosPersonales = async (req, res) => {
   try {
     const idDatosPersonales = req.params.id; 
     const documentosPersonales = await VeriDocumentosPersonalesModel.findAll({
-      attributes: ['id', 'foto', 'id_tipoDocumento', 'id_datosPersonales'],
+      attributes: ['id', 'foto', 'id_tipoDocumento', 'id_datosPersonales','detail', 'type'],
       where: {
         id_datosPersonales: idDatosPersonales,
       },
@@ -24,7 +24,7 @@ export const getVeriDocumentosPersonales = async (req, res) => {
 export const gettVeriDocumentosPersonalesT = async (req, res) => {
   try {
     const documentosPersonales = await VeriDocumentosPersonalesModel.findAll({
-      attributes: ['id', 'foto', 'id_tipoDocumento', 'id_datosPersonales']
+      attributes: ['id', 'foto', 'id_tipoDocumento', 'id_datosPersonales','detail', 'type']
     ,where: {state:true}});
   
     res.status(200).json({documentosPersonales});
