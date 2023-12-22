@@ -3,7 +3,7 @@ import { getVehiculo,getVehiculoId,createVehiculo,updateVehiculo,createUpdatePla
 import  {verifyToken}  from '../middleware/auth.js';
 const rotuer = express.Router();
 
-rotuer.get('/vehiculo',verifyToken, getVehiculo);
+rotuer.get('/vehiculo', getVehiculo);
 rotuer.get('/vehiculo/:id', getVehiculoId);
 rotuer.post('/vehiculo', createVehiculo);
 rotuer.put('/vehiculo/:id', updateVehiculo);

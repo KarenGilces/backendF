@@ -48,8 +48,6 @@ export const createVeriDocumentosPersonales = async (req, res) => {
       foto,
       id_tipoDocumento, // sanitize: convert email to lowercase
       id_datosPersonales
-       
-        
     });
     res.status(201).json({ VeriDocumentosPersonales});
   } catch (error) {
@@ -102,6 +100,29 @@ export const deleteVeriDocumentosPersonales = async (req, res) => {
       return res.status(500).json({ error: error.message });
     }
   };
+  export const uploadImagen = async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({'message':'No se proporcionó una imagen'});
+      }
+      const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (allowedMimes.includes(req.file.mimetype)) {
+        const persona= await VeriDocumentosPersonalesModel.findOne({where:{id:req.params.id}});
+        if(persona){
+          const nombreImagen = req.file.filename;
+          persona.set({...persona,foto:nombreImagen});
+          await persona.save();
+          res.status(200).json({ message: "Imagen subida con éxito" , img:persona.foto});
+          }else{
+          res.status(404).json({message: "Usuario no encontrado"});
+        }
+      } else {
+        res.status(404).json({message: "Solo se permiten archivos JPEG, PNG y JPG"});
+      }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+  };
   export const actualizarVerificacion = async (req, res) => {
     try {
       const { id } = req.params;
@@ -127,5 +148,6 @@ export const deleteVeriDocumentosPersonales = async (req, res) => {
     }
   };
   
-
+  
+  
   

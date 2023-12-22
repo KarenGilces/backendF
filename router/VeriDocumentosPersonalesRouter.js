@@ -12,17 +12,19 @@ const storage = multer.diskStorage({
     },
   });
   const upload = multer({ storage })
+
 import { getVeriDocumentosPersonales,createVeriDocumentosPersonales,actualizarVerificacion,gettVeriDocumentosPersonalesT,uploadImagenes,
-    updateVeriDocumentosPersonales,deleteVeriDocumentosPersonales} 
+    updateVeriDocumentosPersonales,deleteVeriDocumentosPersonales, uploadImagen} 
 from '../controller/VeriDocumentosPersonalesController..js';
 import  {verifyToken}  from '../middleware/auth.js';
 const rotuer = express.Router();
 rotuer.put('/verificar/documento/:id',actualizarVerificacion);
 rotuer.post('/veri/documento/imagenes', upload.single('imagen'), uploadImagenes);
+rotuer.post('/veri/documento/imagenes/:id', upload.single('imagen'), uploadImagen);
 rotuer.get('/veri/documento/:id', getVeriDocumentosPersonales);
 rotuer.get('/veri/documento', gettVeriDocumentosPersonalesT);
 rotuer.post('/veri/documento',verifyToken,  createVeriDocumentosPersonales);
-rotuer.put('/veri/documento/:id', verifyToken, updateVeriDocumentosPersonales);
+rotuer.put('/veri/documento/:id', updateVeriDocumentosPersonales);
 rotuer.delete('/veri/documento/:id',verifyToken,  deleteVeriDocumentosPersonales);
 
 

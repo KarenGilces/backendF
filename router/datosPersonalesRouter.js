@@ -7,7 +7,7 @@ rotuer.get('/datos/:id',getDatos );
 rotuer.get('/datos', getDatosTodos );
 rotuer.post('/datos',verifyToken,createDatos);
 rotuer.put('/datos/lastname/:id',verifyToken,createUpdateLastName);
-rotuer.put('/datos/names/:id',verifyToken,createUpdateNames);
+rotuer.put('/datos/names/:id',createUpdateNames);
 rotuer.put('/datos/cedula/:id',verifyToken,createUpdateCedula);
 rotuer.put('/datos/celular/:id',verifyToken,createUpdateCelular);
 rotuer.put('/datos/sexo/:id',verifyToken,createUpdateSexo);
