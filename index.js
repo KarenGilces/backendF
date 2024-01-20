@@ -49,6 +49,7 @@ app.use('/api', routerMarca);
 app.use('/api', routerMadelo);
 app.use('/api', routerTipoVehiculo);
 app.use('/api', routerColor);
+app.use('/api', routerColor);
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
