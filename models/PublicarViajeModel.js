@@ -9,13 +9,41 @@ export const PublicarViajeModel = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    detail: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    latSalida:{
+      type:DataTypes.STRING,
+      allowNull:false,
     },
-    type: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    lngSalida:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    latDestino:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    lngDestino:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    fechaSalida:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    horaSalida:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    comodidad:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    numPasajero:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    precioViaje:{
+      type:DataTypes.STRING,
+      allowNull:false,
     },
     state: {
       type: DataTypes.BOOLEAN,
