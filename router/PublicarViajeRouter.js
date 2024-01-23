@@ -3,7 +3,7 @@ import { getPublicarViaje,createPublicarViaje,updatePublicarViaje,deletePublicar
 import  {verifyToken}  from '../middleware/auth.js';
 const rotuer = express.Router();
 rotuer.get('/publicar',verifyToken, getPublicarViaje);
-rotuer.post('/publicar', createPublicarViaje);
+rotuer.post('/publicar', verifyToken,createPublicarViaje);
 rotuer.put('/publicar/:id', verifyToken,updatePublicarViaje);
 rotuer.delete('/publicar/:id',verifyToken,deletePublicarViaje);
 

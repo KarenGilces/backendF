@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/conexion.js";
+import { UserModel } from "./UserModel.js";
 
 export const PublicarViajeModel = sequelize.define(
   "publicarviajes",
@@ -54,3 +55,6 @@ export const PublicarViajeModel = sequelize.define(
     timestamps: false,
   }
 );
+
+PublicarViajeModel.belongsTo(UserModel, { foreignKey: "id_users" });
+UserModel.hasMany(PublicarViajeModel, { foreignKey: "id_users" });
