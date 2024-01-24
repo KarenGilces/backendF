@@ -1,14 +1,14 @@
 import { PublicarViajeModel } from "../models/PublicarViajeModel.js";
+export const getPublicarViaje= async (req, res) => {
+  
+};
+export const createPublicarViaje = async (req, res) => {
+ 
+};
+export const updatePublicarViaje  = async (req, res) => {
 
-export const getViaje = async (req, res) => {
-    try {
-      const viajes = await PublicarViajeModel.findAll({
-        attributes: ['id', 'code', 'name']
-      },{where: {state:true}});
-    
-      res.status(200).json({viajes});
-     
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-  };
+};
+export const deletePublicarViaje= async (req, res) => {
+
+};
+

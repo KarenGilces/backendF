@@ -1,22 +1,28 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/conexion.js";
 
-export const PublicarViajeModel = sequelize.define("Viajes",{
-    id:{
-        autoIncrement:true,
-        primaryKey:true,
-        type: DataTypes.INTEGER,
+export const PublicarViajeModel = sequelize.define(
+  "publicarviajes",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
-    name:{
-        type:DataTypes.STRING,
-        allowNull:false,
+    detail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    type: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     state: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-      },
-},
-{
-    timestamps:false
-}
-)
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);

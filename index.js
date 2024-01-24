@@ -21,6 +21,7 @@ import  routerMarca from './router/MarcaRouter.js';
 import  routerMadelo from './router/ModeloRouter.js';
 import  routerTipoVehiculo from './router/TipoVehiculoRouter.js';
 import  routerColor from './router/ColorRouter.js';
+import  routerPublicar from './router/PublicarViajeRouter.js';
 
 import { sequelize } from "./db/conexion.js";
 
@@ -49,7 +50,7 @@ app.use('/api', routerMarca);
 app.use('/api', routerMadelo);
 app.use('/api', routerTipoVehiculo);
 app.use('/api', routerColor);
-app.use('/api', routerColor);
+app.use('/api', routerPublicar);
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
