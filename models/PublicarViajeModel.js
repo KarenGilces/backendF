@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/conexion.js";
+import { UserModel } from "./UserModel.js";
 
 export const PublicarViajeModel = sequelize.define(
   "publicarviajes",
@@ -9,13 +10,41 @@ export const PublicarViajeModel = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    detail: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    latSalida:{
+      type:DataTypes.STRING,
+      allowNull:false,
     },
-    type: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    lngSalida:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    latDestino:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    lngDestino:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    fechaSalida:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    horaSalida:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    comodidad:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    numPasajero:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    precioViaje:{
+      type:DataTypes.STRING,
+      allowNull:false,
     },
     state: {
       type: DataTypes.BOOLEAN,
@@ -26,3 +55,6 @@ export const PublicarViajeModel = sequelize.define(
     timestamps: false,
   }
 );
+
+PublicarViajeModel.belongsTo(UserModel, { foreignKey: "id_users" });
+UserModel.hasMany(PublicarViajeModel, { foreignKey: "id_users" });
