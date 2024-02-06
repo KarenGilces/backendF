@@ -26,6 +26,14 @@ export const PublicarViajeModel = sequelize.define(
       type:DataTypes.STRING,
       allowNull:false,
     },
+    // textSalida:{
+    //   type:DataTypes.STRING,
+    //   allowNull:false,
+    // },
+    // textDestino:{
+    //   type:DataTypes.STRING,
+    //   allowNull:false,
+    // },
     fechaSalida:{
       type:DataTypes.STRING,
       allowNull:false,
@@ -39,16 +47,20 @@ export const PublicarViajeModel = sequelize.define(
       allowNull:false,
     },
     numPasajero:{
-      type:DataTypes.STRING,
+      type:DataTypes.INTEGER,
       allowNull:false,
     },
     precioViaje:{
       type:DataTypes.STRING,
       allowNull:false,
     },
-    state: {
+    stateViaje: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true,
+      defaultValue: false,
+    },
+    viajeCompletado: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
@@ -56,5 +68,5 @@ export const PublicarViajeModel = sequelize.define(
   }
 );
 
-PublicarViajeModel.belongsTo(UserModel, { foreignKey: "id_users" });
-UserModel.hasMany(PublicarViajeModel, { foreignKey: "id_users" });
+PublicarViajeModel.belongsTo(UserModel, { foreignKey: "user_publish" });
+UserModel.hasMany(PublicarViajeModel, { foreignKey: "user_publish" });
