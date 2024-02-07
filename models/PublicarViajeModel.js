@@ -26,14 +26,14 @@ export const PublicarViajeModel = sequelize.define(
       type:DataTypes.STRING,
       allowNull:false,
     },
-    // textSalida:{
-    //   type:DataTypes.STRING,
-    //   allowNull:false,
-    // },
-    // textDestino:{
-    //   type:DataTypes.STRING,
-    //   allowNull:false,
-    // },
+    textSalida:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
+    textDestino:{
+      type:DataTypes.STRING,
+      allowNull:false,
+    },
     fechaSalida:{
       type:DataTypes.STRING,
       allowNull:false,
@@ -51,7 +51,7 @@ export const PublicarViajeModel = sequelize.define(
       allowNull:false,
     },
     precioViaje:{
-      type:DataTypes.STRING,
+      type:DataTypes.FLOAT,
       allowNull:false,
     },
     stateViaje: {
