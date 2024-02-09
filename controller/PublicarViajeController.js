@@ -36,7 +36,12 @@ export const getViajesFilter = async (req, res) => {
         let datosFiltrados = [];
         const radius_km = 10.0;
 
+        if (!(latSalida || lngSalida || latDestino || lngDestino || fecha || cantidad )) {
+            res.status(400).json({ message: "all input is required" });
+        }
+
         let datos = await PublicarViajeModel.findAll({
+            // attributes:[],
             where: {
                 fechaSalida: fecha,
                 numPasajero: {
@@ -54,24 +59,21 @@ export const getViajesFilter = async (req, res) => {
                     datosFiltrados.push(dato);
                 }
             }
-
         })
 
-        // const distance = this.haversine(latSalida, lngSalida);
-
-        // const datos = await PublicarViajeModel.findAll({
-
-        //   where: {
-        //     latSalida: latSalida,
-        //     lngSalida: lngSalida,
-        //     latDestino: latDestino,
-        //     lngDestino: lngDestino,
-        //     fechaSalida: fecha,
-        //     numPasajero: {
-        //         [Sequelize.Op.gt]: cantidad
-        //     }
-        //   }});
-        res.status(201).json({ message: datosFiltrados })
+        let datosFiltradosTransformados = datosFiltrados.map(dato => ({
+            id:dato.id,
+            textSalida:dato.textSalida,
+            textDestino:dato.textDestino,
+            precioViaje:dato.precioViaje,
+            numPasajero:dato.numPasajero
+        }))
+        if(datosFiltrados.length > 0){
+            res.status(201).json(datosFiltradosTransformados)
+        }else{
+            res.status(201).json( {message: "NO EXISTEN VIAJES PROGRAMADOS"})
+        }
+        
     } catch {
         res.status(500).json({ error: error.message });
     }
