@@ -1,6 +1,7 @@
 import { PublicarViajeModel } from "../models/PublicarViajeModel.js";
 import { Sequelize } from 'sequelize';
 import { UserModel } from "../models/UserModel.js";
+import { DatosPersonalesModel } from "../models/DatosPersonalesModel.js";
 export const getPublicarViaje = async (req, res) => {
 
 };
@@ -13,10 +14,32 @@ export const getViajeUser = async (req, res) => {
         include: [
             {
               model: UserModel, 
+              include :[
+                {model: DatosPersonalesModel}
+              ]
             }
           ]
       });
-    res.status(201).json({ message: viaje });
+    let datosViaje = {
+        id:viaje.id,
+        textSalida:viaje.textSalida,
+        textDestino:viaje.textDestino,
+        fechaSalida:viaje.fechaSalida,
+        horaSalida:viaje.horaSalida,
+        comodidad:viaje.comodidad,
+        numPasajero:viaje.numPasajero,
+        precioViaje:viaje.precioViaje,
+        user_id:viaje.user.id,
+        datosPersonales_id:viaje.user.datosPersonale.id,
+        names:viaje.user.datosPersonale.names,
+        lastname:viaje.user.datosPersonale.lastname,
+        celular:viaje.user.datosPersonale.celular,
+        sexo:viaje.user.datosPersonale.sexo,
+        foto:viaje.user.datosPersonale.foto,
+        resena:viaje.user.datosPersonale.resena,
+        calificacion:viaje.user.datosPersonale.calificacion,
+    }
+    res.status(201).json(datosViaje);
 };
 
 function haversine(latReq, lonReq, latDB, lonDB) {
