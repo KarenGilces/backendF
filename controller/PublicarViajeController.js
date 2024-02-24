@@ -1,7 +1,22 @@
 import { PublicarViajeModel } from "../models/PublicarViajeModel.js";
 import { Sequelize } from 'sequelize';
+import { UserModel } from "../models/UserModel.js";
 export const getPublicarViaje = async (req, res) => {
 
+};
+
+export const getViajeUser = async (req, res) => {
+    const viajeId = req.query.id;  // Acceder al id desde los parámetros de la consulta (?id=1)
+    const viaje = await PublicarViajeModel.findOne({
+        where: { id: viajeId },
+        
+        include: [
+            {
+              model: UserModel, 
+            }
+          ]
+      });
+    res.status(201).json({ message: viaje });
 };
 
 function haversine(latReq, lonReq, latDB, lonDB) {
@@ -34,6 +49,7 @@ export const getViajesFilter = async (req, res) => {
         const fecha = req.body.fecha
         const cantidad = req.body.cantidad
         let datosFiltrados = [];
+        let datosFiltradosNoFecha = [];
         const radius_km = 10.0;
 
         if (!(latSalida || lngSalida || latDestino || lngDestino || fecha || cantidad )) {
@@ -49,6 +65,19 @@ export const getViajesFilter = async (req, res) => {
                 }
             }
         });
+
+        let datosNoFecha = await PublicarViajeModel.findAll({
+            where: {
+                fechaSalida: {
+                    [Sequelize.Op.not]: fecha
+                },
+                numPasajero: {
+                    [Sequelize.Op.gte]: cantidad
+                }
+            }
+        });
+
+
         datos.forEach(dato => {
             let latSDB = dato.latSalida, lngSDB = dato.lngSalida
             let distanceS = haversine(latSalida, lngSalida, latSDB, lngSDB);
@@ -61,6 +90,18 @@ export const getViajesFilter = async (req, res) => {
             }
         })
 
+        datosNoFecha.forEach(dato => {
+            let latSDB = dato.latSalida, lngSDB = dato.lngSalida
+            let distanceS = haversine(latSalida, lngSalida, latSDB, lngSDB);
+            if (distanceS <= radius_km) {
+                let latDDB = dato.latDestino, lngDDB = dato.lngDestino
+                let distanceD = haversine(latDestino, lngDestino, latDDB, lngDDB);
+                if (distanceD <= radius_km) {
+                    datosFiltradosNoFecha.push(dato);
+                }
+            }
+        })
+
         let datosFiltradosTransformados = datosFiltrados.map(dato => ({
             id:dato.id,
             textSalida:dato.textSalida,
@@ -68,8 +109,23 @@ export const getViajesFilter = async (req, res) => {
             precioViaje:dato.precioViaje,
             numPasajero:dato.numPasajero
         }))
-        if(datosFiltrados.length > 0){
-            res.status(201).json(datosFiltradosTransformados)
+
+        let datosFiltradosTransformadosNoFecha = datosFiltradosNoFecha.map(dato => ({
+            id:dato.id,
+            textSalida:dato.textSalida,
+            textDestino:dato.textDestino,
+            precioViaje:dato.precioViaje,
+            numPasajero:dato.numPasajero,
+            fecha:dato.fechaSalida
+        }))
+
+        const respuesta = {
+            datosFecha: datosFiltradosTransformados,
+            datosNoFecha: datosFiltradosTransformadosNoFecha
+          };
+
+        if(datosFiltrados.length > 0 || datosFiltradosNoFecha.length > 0){
+            res.status(201).json(respuesta)
         }else{
             res.status(201).json( {message: "NO EXISTEN VIAJES PROGRAMADOS"})
         }
