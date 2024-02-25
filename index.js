@@ -23,6 +23,8 @@ import  routerTipoVehiculo from './router/TipoVehiculoRouter.js';
 import  routerColor from './router/ColorRouter.js';
 import  routerPublicar from './router/PublicarViajeRouter.js';
 import  routerUserViaje from './router/UserViajeRouter.js';
+import  routerValoracion from './router/calificacionRouter.js';
+
 
 import { sequelize } from "./db/conexion.js";
 
@@ -35,6 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api', rotuerTypeUsers);
 app.use('/api', routerUser);
 app.use('/api', routerVerifyUserProfile);
+app.use('/api', routerValoracion);
 app.use('/api', routerVerificationType);
 app.use('/api', routerPermission);
 app.use('/api', routerUserPermission);
